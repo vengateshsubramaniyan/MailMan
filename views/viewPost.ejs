@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Mailman</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="/stylesheets/shop-homepage.css" rel="stylesheet">
+
+  </head>
+
+  <body>
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+      <div class="container">
+        <a class="navbar-brand" href="#">MailMan</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item active">
+              <a class="nav-link" href="/">Home
+                <span class="sr-only">(current)</span>
+              </a>
+            </li>
+            <% if(!isAuthenticated){ %>
+                <li class="nav-item">
+                  <a class="nav-link" href="/login">Login</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="/register">Register</a>
+                </li>
+            <% } else { %>
+              <li class="nav-item">
+                <a class="nav-link" href="/index/logout">Logout</a>
+              </li>
+            <% } %>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Contact</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Page Content -->
+    <% if(isAuthenticated && post.length>0){ %>
+
+    <div class="container">
+
+      <div class="row">
+
+        <%- include('header.ejs') %>
+        <!-- /.col-lg-3 -->
+
+        <div class="col-lg-9">
+
+          <div id="carouselExampleIndicators" class="carousel slide my-4" data-ride="carousel">
+            <ol class="carousel-indicators">
+              <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+            </ol>
+            <div class="carousel-inner" role="listbox">
+              <div class="carousel-item active">
+                <img class="d-block img-fluid" src="/images/uploads/<%= post[0].filename %>" style="width:900px;height:350px; alt="First slide">
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+              <div class="col-lg-4 col-md-6 mb-4">
+                <h1>Post Name: </h1> <p class="text-center"> <%= post[0].postname %> </p>
+                <h1>Posted On: </h1> <p class="text-center"> <%= post[0].postedOn %> </p>
+                <h1>Message: </h1> <p class="text-center"> <%- post[0].message %> </p>
+              </div>
+          </div>
+          <!-- /.row -->
+
+        </div>
+        <!-- /.col-lg-9 -->
+
+      </div>
+      <!-- /.row -->
+
+    </div>
+    <% } else { %>
+        <div class = "container" >
+          <% if(!isAuthenticated) { %>
+            <br><br><br><br><br><h1>Please login to continue....</h1><br><br><br><br><br>
+          <% } else { %>
+            <br><br><br><br><br><h1>No such Post....</h1><br><br><br><br><br>
+          <% } %>
+        </div>
+    <% } %>
+    <!-- /.container -->
+
+    <!-- Footer -->
+    <%- include('footer.ejs') %>
